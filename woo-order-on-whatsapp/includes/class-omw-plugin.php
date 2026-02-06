@@ -1,5 +1,8 @@
 <?php
 
+use Omw\Includes\Telemetry\Telemetry_Fallback;
+use Omw\Includes\Telemetry\Snapshots;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -123,6 +126,20 @@ final class OMW_Plugin {
 		include_once OMW_PLUGIN_PATH . 'includes/abstract-class-button.php';
 
 		/**
+		 * Telemetry
+		 */
+		include_once OMW_PLUGIN_PATH . 'includes/telemetry/class-snapshots.php';
+		include_once OMW_PLUGIN_PATH . 'includes/telemetry/class-telemetry-fallback.php';
+
+		if ( class_exists( Telemetry_Fallback::class ) ) {
+			Telemetry_Fallback::ensure_defaults();
+		}
+
+		if ( class_exists( Snapshots::class ) ) {
+			Snapshots::set_collect_snapshots();
+		}
+
+		/**
 		 * TODO: Check basic if basic settings are selected
 		 */
 
@@ -208,7 +225,7 @@ final class OMW_Plugin {
 	 * @access public
 	 */
 	public function enqueue_plugin_js() {
-		wp_enqueue_script( 'omw_script',  OMW_PLUGN_URL . '/assets/js/front-js.min.js', array('jquery'), OMW_VERSION, true );
+		wp_enqueue_script( 'omw_script',  OMW_PLUGN_URL . '/assets/js/front-js.min.js', array(), OMW_VERSION, true );
 	}
 
 	/**
