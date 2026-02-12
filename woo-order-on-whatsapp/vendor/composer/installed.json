@@ -1,0 +1,52 @@
+{
+    "packages": [
+        {
+            "name": "eduardovillao/wpfeatureloop-sdk",
+            "version": "v1.2.0",
+            "version_normalized": "1.2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/eduardovillao/wpfeatureloop-php-sdk.git",
+                "reference": "923fbe0d40ba0a8756feb374932271e470518cc6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/eduardovillao/wpfeatureloop-php-sdk/zipball/923fbe0d40ba0a8756feb374932271e470518cc6",
+                "reference": "923fbe0d40ba0a8756feb374932271e470518cc6",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.4"
+            },
+            "require-dev": {
+                "squizlabs/php_codesniffer": "^3.12"
+            },
+            "time": "2026-02-12T20:04:34+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "WPFeatureLoop\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "WPFeatureLoop",
+                    "email": "hey@wpfeatureloop.com"
+                }
+            ],
+            "description": "WPFeatureLoop SDK for WordPress plugins. Collect feature requests and feedback from your users.",
+            "support": {
+                "issues": "https://github.com/eduardovillao/wpfeatureloop-php-sdk/issues",
+                "source": "https://github.com/eduardovillao/wpfeatureloop-php-sdk"
+            },
+            "install-path": "../eduardovillao/wpfeatureloop-sdk"
+        }
+    ],
+    "dev": false,
+    "dev-package-names": []
+}
