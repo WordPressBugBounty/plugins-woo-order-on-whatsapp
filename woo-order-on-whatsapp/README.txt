@@ -4,7 +4,7 @@ Donate link: https://eduardovillao.me/
 Tags: woocommerce, whatsapp, order on whatsapp
 Requires at least: 5.5
 Tested up to: 6.9
-Stable tag: 2.9
+Stable tag: 3.0
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -69,6 +69,11 @@ We’d love to hear from you! [plugins@eduardovillao.me](mailto:plugins@eduardov
 2. Button in Woocommerce Product Page
 
 == Changelog ==
+
+= 3.0 =
+* Added: support to WhatsApp oficial API required by Pro version.
+* Changed: code improvements.
+* Changed: Dashboard admin screen improvements.
 
 = 2.9 =
 * Changed: code improvements.

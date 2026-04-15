@@ -22,6 +22,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<li><code>{product-qty}</code> - <?php esc_html_e( 'Product Quantity', 'woo-order-on-whatsapp' ); ?> . </li>
 		<li><code>{product-sku}</code> - <?php esc_html_e( 'Product Sku', 'woo-order-on-whatsapp' ); ?> . </li>
 		<li><code>{product-atributes}</code> - <?php esc_html_e( 'Product Atributes', 'woo-order-on-whatsapp' ); ?> . </li>
+		<li><code>{product-weight}</code> - <?php esc_html_e( 'Product Weight', 'woo-order-on-whatsapp' ); ?> . </li>
+		<li><code>{product-height}</code> - <?php esc_html_e( 'Product Height', 'woo-order-on-whatsapp' ); ?> . </li>
+		<li><code>{product-width}</code> - <?php esc_html_e( 'Product Width', 'woo-order-on-whatsapp' ); ?> . </li>
+		<li><code>{product-length}</code> - <?php esc_html_e( 'Product Length', 'woo-order-on-whatsapp' ); ?> . </li>
+		<li><code>{product-category}</code> - <?php esc_html_e( 'Product Category', 'woo-order-on-whatsapp' ); ?> . </li>
+		<li><code>{product-id}</code> - <?php esc_html_e( 'Product ID', 'woo-order-on-whatsapp' ); ?> . </li>
+		<li><code>{product-link}</code> - <?php esc_html_e( 'Product Link', 'woo-order-on-whatsapp' ); ?> . </li>
+		<li><code>{product-short-description}</code> - <?php esc_html_e( 'Product Short Description', 'woo-order-on-whatsapp' ); ?> . </li>
+		<li><code>{product-meta-{[your-field-name]}</code> - <?php esc_html_e( 'Get value from product custom fields (post meta)', 'woo-order-on-whatsapp' ); ?> . </li>
 	</ul>
 
 	<textarea name="evwapp_opiton_product_order_message" class="large-text" disabled rows="6"><?php echo get_option( 'evwapp_opiton_product_order_message' ); ?></textarea>

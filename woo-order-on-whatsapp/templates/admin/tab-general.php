@@ -8,7 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<h2><?php esc_html_e( 'General Settings', 'woo-order-on-whatsapp' );?></h2>
 		<table class="form-table">
 			<tbody>
-				<tr">
+				<tr>
 					<th scope="row">
 						<label for="evwapp_opiton_phone_number"><?php esc_html_e( 'WhatsApp Number', 'woo-order-on-whatsapp' );?></label>
 					</th>
@@ -43,6 +43,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<td>
 						<input type="checkbox" name="evwapp_opiton_show_cart" id="evwapp_opiton_show_cart" value="yes" <?php checked( get_option('evwapp_opiton_show_cart'), 'yes' );?>><?php esc_html_e( 'Yes, show button in cart page.', 'order-on-whatspp-for-woocommerce' );?>
 						<p class="omw-description"><?php esc_html_e( 'The button will be displayed on cart page.', 'woo-order-on-whatsapp' );?></p>
+					</td>
+				</tr>
+				<tr>
+					<th scope="row">
+						<label for="evwapp_option_checkout_btn_text"><?php esc_html_e( 'Checkout button text', 'woo-order-on-whatsapp' );?> <?php OMW_Utils::get_pro_tag(); ?></label>
+					</th>
+					<td>
+						<input type="text" disabled name="evwapp_option_checkout_btn_text" id="evwapp_option_checkout_btn_text" class="regular-text" value="<?php echo esc_attr( get_option( 'evwapp_option_checkout_btn_text' ) ); ?>">
+						<p class="omw-description"><?php esc_html_e( 'Custom text for the WooCommerce checkout "Place order" button. Leave empty to use the default.', 'woo-order-on-whatsapp' );?></p>
 					</td>
 				</tr>
 			</tbody>

@@ -657,3 +657,128 @@ body.woo-order-on-whatsapp_page_woo-order-on-whatsapp-settings {
 	align-items: center;
 	gap: 4px;
 }
+
+/* Quick Access */
+.mydd-admin-card:has(.mydd-quick-access) {
+	grid-column: 1 / -1;
+}
+
+.mydd-quick-access {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	column-gap: 24px;
+	row-gap: 8px;
+}
+
+.mydd-quick-access__item {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	padding: 12px 16px;
+	text-decoration: none;
+	color: inherit;
+	transition: background 0.2s ease;
+	border-radius: 8px;
+}
+
+.mydd-quick-access__item:hover {
+	background: var(--myd-color-blue-50, oklch(97% 0.014 254.604));
+}
+
+.mydd-quick-access__item > svg {
+	flex-shrink: 0;
+}
+
+.mydd-quick-access__text {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+	max-width: 180px;
+}
+
+.mydd-quick-access__title {
+	font-size: 0.95em;
+	font-weight: 600;
+	color: var(--myd-color-gray-950, oklch(13% 0.028 261.692));
+	line-height: 100%;
+}
+
+.mydd-quick-access__description {
+	font-size: 0.8em;
+	color: var(--myd-color-zinc-500, oklch(55.2% 0.016 285.938));
+}
+
+.mydd-quick-access__chevron {
+	color: var(--myd-color-zinc-500, oklch(55.2% 0.016 285.938));
+	font-size: 1.2em;
+	flex-shrink: 0;
+}
+
+/* Addon Card */
+.mydd-addon-card {
+	justify-content: flex-start;
+}
+
+.mydd-addon-card__header {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+}
+
+.mydd-addon-card__header-text {
+	gap: 8px;
+	display: flex;
+	flex-direction: column;
+}
+
+.mydd-addon-card__image {
+	width: 100px;
+	height: 100px;
+}
+
+.mydd-addon-card__title {
+	margin: 0;
+	font-size: 1.4em;
+	font-weight: 600;
+	color: var(--myd-color-gray-950, oklch(13% 0.028 261.692));
+}
+
+.mydd-addon-card__description {
+	margin: 0;
+	font-size: 0.95em;
+	color: var(--myd-color-zinc-500, oklch(55.2% 0.016 285.938));
+}
+
+.mydd-addon-card__features {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	display: flex;
+	flex-direction: column;
+}
+
+.mydd-addon-card__features li {
+	font-size: 0.95em;
+	color: var(--myd-color-gray-950, oklch(13% 0.028 261.692));
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+
+.mydd-addon-card__features li::before {
+	content: "";
+	width: 6px;
+	height: 6px;
+	border-radius: 50%;
+	background: var(--myd-color-blue-400, oklch(70.7% 0.165 254.624));
+	flex-shrink: 0;
+}
+
+.mydd-addon-card__footer {
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	gap: 12px;
+	margin-top: auto;
+}
