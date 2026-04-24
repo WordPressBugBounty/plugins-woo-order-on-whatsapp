@@ -107,18 +107,6 @@ final class OMW_Plugin {
 	 * @access public
 	 */
 	public function init() {
-		if( ! $this->plugin_is_active( 'woocommerce/woocommerce.php' ) ) {
-			add_action( 'admin_notcies', [ $this, 'notice_woo_inactived' ] );
-			return;
-		}
-
-		/**
-		 * Do action for init other extensions
-		 *
-		 * @since 2.0
-		 */
-		do_action( 'omw_plugin_init' );
-
 		/**
 		 * Include initial required files
 		 */
@@ -155,6 +143,40 @@ final class OMW_Plugin {
 		}
 
 		/**
+		 * Custom checkout button text
+		 */
+		$checkout_btn_text = get_option( 'evwapp_option_checkout_btn_text' );
+
+		if ( ! empty( $checkout_btn_text ) ) {
+			add_filter( 'woocommerce_order_button_text', function() use ( $checkout_btn_text ) {
+				return $checkout_btn_text;
+			});
+		}
+
+		/**
+		 * Check option and include after checkout Class/support
+		 */
+		if ( get_option( 'evwapp_opiton_show_thank' ) === 'yes' ) {
+			include_once OMW_PLUGIN_PATH . 'includes/class-after-checkout.php';
+
+			$checkout = new OWW_After_Checkout;
+			add_action( 'woocommerce_thankyou', [ $checkout, 'init' ], 10, 1 );
+		}
+
+		/**
+		 * Check and include Elementor widget
+		 */
+		$this->add_elementor_widget();
+
+		/**
+		 * WhatsApp notifications via MyD Notifications API.
+		 *
+		 * Always instantiate — internal guards decide whether to fire.
+		 */
+		include_once OMW_PLUGIN_PATH . 'includes/class-notifications.php';
+		new OMW_Notifications();
+
+		/**
 		 * Check option and include product page btn class
 		 */
 		if( $this->button_in_product_page === 'yes' ) {
@@ -183,23 +205,23 @@ final class OMW_Plugin {
 	}
 
 	/**
-	 * Admin notice - WooCommerce
+	 * Add custom Elementor Widgets
 	 *
-	 * Warning when the site doesn't have WooCommerce activated.
+	 * Add custom Elementor widgets after plugins loaded if elementor is installed and active.
 	 *
-	 * @since 2.2
+	 * @since 2.3
 	 *
 	 * @access public
 	 */
-	public function notice_woo_inactived() {
-		$message = sprintf(
-			esc_html__( '%1$s requires WooCommerce to be installed and activated.', 'woo-order-on-whatsapp' ),
-			'<strong>Order on WhatsApp for WooCommerce</strong>'
-		);
+	public function add_elementor_widget() {
+		if ( ! did_action( 'elementor/loaded' ) ) {
+			return;
+		}
 
-		$html_message = sprintf( '<div class="notice notice-error"><p>%1$s</p></div>', $message );
+		include_once OMW_PLUGIN_PATH . 'includes/class-register-elementor-widgets.php';
 
-		echo wp_kses_post( $html_message );
+		$widgets = new OWW_Register_Elementor_Widgets;
+		$widgets->init();
 	}
 
 	/**
@@ -252,16 +274,5 @@ final class OMW_Plugin {
 	 */
 	public function enqueue_admin_plugin_js() {
 		wp_enqueue_script( 'omw_admin_script', OMW_PLUGN_URL . '/assets/js/admin/admin-settings.min.js', [], OMW_VERSION, true );
-	}
-
-	/**
-	 * Check plugin is activated
-	 *
-	 * @since 2.8
-	 * @return boolean
-	 * @param string $plugin
-	 */
-	public function plugin_is_active( $plugin ) {
-		return function_exists( 'is_plugin_active' ) ? is_plugin_active( $plugin ) : in_array( $plugin, (array) get_option( 'active_plugins', array() ), true );
 	}
 }

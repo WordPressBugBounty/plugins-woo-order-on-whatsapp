@@ -43,14 +43,4 @@ class OMW_Utils {
 
 		return $currency . ' ' . number_format( $price, $number_of_decimals, $thousand_separator, $decimal_separator );
 	}
-
-	/**
-	 * Tag to pro version
-	 *
-	 * @since 2.0
-	 * @return string
-	 */
-	public static function get_pro_tag() {
-		echo '<a class="owm-pro-tag" href="https://codecanyon.net/item/order-on-whatsapp-for-woocommerce/25824812" target="_blank">' . esc_html__( 'Only on Pro', 'woo-order-on-whatsapp' ) . '</a>';
-	}
 }

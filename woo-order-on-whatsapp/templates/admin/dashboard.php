@@ -12,16 +12,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	</h1>
 
 	<section class="myd-custom-content-page">
-		<?php if ( ! did_action( 'oww_plugin_init' ) ) : ?>
-			<a class="owm-offer-banner__link" href="https://codecanyon.net/item/order-on-whatsapp-for-woocommerce/25824812" target="_blank">
-				<picture>
-					<source srcset="<?php echo esc_url( OMW_PLUGN_URL . 'assets/img/own-offer-banner.avif' ); ?>" type="image/avif">
-					<source srcset="<?php echo esc_url( OMW_PLUGN_URL . 'assets/img/own-offer-banner.webp' ); ?>" type="image/webp">
-					<img src="<?php echo esc_url( OMW_PLUGN_URL . 'assets/img/own-offer-banner.png' ); ?>" alt="<?php esc_attr_e( 'Order on WhatsApp for WooCommerce', 'woo-order-on-whatsapp' );?>" class="owm-offer-banner__image" decoding="async">
-				</picture>
-			</a>
-		<?php endif; ?>
-
 		<div class="myd-admin-cards myd-card-2columns">
 			<div class="mydd-admin-card">
 				<h2 class="mydd-admin-card__title"><?php esc_html_e( 'Quick Access', 'woo-order-on-whatsapp' ); ?></h2>
@@ -68,7 +58,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					</ul>
 
 					<div class="mydd-addon-card__footer">
-						<a href="https://myddelivery.com/pt-br/#premium" target="_blank" class="mydd-admin-button"><?php esc_html_e( 'See Plans', 'woo-order-on-whatsapp' ); ?></a>
+						<a href="https://myddelivery.com/notifications/" target="_blank" class="mydd-admin-button"><?php esc_html_e( 'See Plans', 'woo-order-on-whatsapp' ); ?></a>
 					</div>
 				</div>
 			<?php endif; ?>
