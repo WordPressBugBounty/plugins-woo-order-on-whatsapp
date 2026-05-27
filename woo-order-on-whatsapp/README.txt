@@ -3,13 +3,13 @@ Contributors: evcode
 Donate link: https://eduardovillao.me/
 Tags: woocommerce, whatsapp, order whatsapp, whatsapp button, whatsapp notifications
 Requires at least: 5.5
-Tested up to: 6.9
-Stable tag: 4.0
+Tested up to: 7.0
+Stable tag: 4.0.1
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Add a WhatsApp order button to your WooCommerce store. Completely free — and if you want automatic status notifications to customers, MyD Notifications has you covered.
+Add a WhatsApp order button to your WooCommerce store. Completely free. Automatic customer notifications with MyD Notifications.
 
 == Description ==
 
@@ -83,6 +83,10 @@ Visit [eduardovillao.me](https://eduardovillao.me/wordpress-plugins/) for docume
 3. Custom Messages using tokens 2
 
 == Changelog ==
+
+= 4.0.1 =
+* Changed: code improvements.
+* Changed: WP 7.0 compatibility.
 
 = 4.0 =
 * New: Settings UI reorg.

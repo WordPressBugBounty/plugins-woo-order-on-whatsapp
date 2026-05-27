@@ -18,7 +18,7 @@ $omw_error_log  = is_array( $omw_error_log ) ? $omw_error_log : [];
 		printf(
 			/* translators: %s: link to MyD Notifications plans */
 			esc_html__( 'Send automated WhatsApp notifications through the official Meta API. Configure your license key below to unlock store alerts and customer status updates. %s', 'woo-order-on-whatsapp' ),
-			'<a href="https://myddelivery.com/notifications/" target="_blank">' . esc_html__( 'See plans', 'woo-order-on-whatsapp' ) . ' ↗</a>'
+			'<a href="https://myddelivery.com/notifications/?utm_source=woo-order-on-whatsapp&utm_medium=wp-admin&utm_campaign=myd-notifications&utm_content=integrations-tab" target="_blank">' . esc_html__( 'See plans', 'woo-order-on-whatsapp' ) . ' ↗</a>'
 		);
 		?>
 	</p>

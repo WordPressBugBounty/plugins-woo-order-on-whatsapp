@@ -58,7 +58,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					</ul>
 
 					<div class="mydd-addon-card__footer">
-						<a href="https://myddelivery.com/notifications/" target="_blank" class="mydd-admin-button"><?php esc_html_e( 'See Plans', 'woo-order-on-whatsapp' ); ?></a>
+						<a href="https://myddelivery.com/notifications/?utm_source=woo-order-on-whatsapp&utm_medium=wp-admin&utm_campaign=myd-notifications&utm_content=dashboard-card" target="_blank" class="mydd-admin-button"><?php esc_html_e( 'See Plans', 'woo-order-on-whatsapp' ); ?></a>
 					</div>
 				</div>
 			<?php endif; ?>
