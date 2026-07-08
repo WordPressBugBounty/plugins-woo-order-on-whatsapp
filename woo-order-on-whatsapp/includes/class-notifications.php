@@ -62,7 +62,7 @@ final class OMW_Notifications {
 		}
 
 		$status_label = wc_get_order_status_name( $order->get_status() );
-		$result       = OMW_MyD_Client::send( $e164, (string) $order_id, $status_label );
+		$result       = OMW_MyD_Client::send_store_alert( $e164, (string) $order_id, $status_label );
 
 		if ( is_wp_error( $result ) ) {
 			self::log_error( $order_id, $order->get_status(), $result->get_error_code(), $result->get_error_message() );
@@ -125,7 +125,14 @@ final class OMW_Notifications {
 		}
 
 		$status_label = wc_get_order_status_name( $new_status );
-		$result       = OMW_MyD_Client::send( $e164, (string) $order_id, $status_label );
+
+		$result = OMW_MyD_Client::send_customer_notification(
+			$e164,
+			$order->get_billing_first_name(),
+			(string) $order_id,
+			$status_label,
+			$order->get_billing_email()
+		);
 
 		if ( is_wp_error( $result ) ) {
 			$order->add_order_note(

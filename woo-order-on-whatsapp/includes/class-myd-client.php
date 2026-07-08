@@ -14,14 +14,24 @@ final class OMW_MyD_Client {
 	const BASE_URL = 'https://services.myddelivery.com';
 
 	/**
-	 * Send a WhatsApp notification via the MyD Notifications service.
+	 * Path for the store alert endpoint (new-order notification to the store).
+	 */
+	const STORE_ALERT_PATH = '/api/whatsapp/send';
+
+	/**
+	 * Path for the customer notification endpoint (order status change to the customer).
+	 */
+	const CUSTOMER_NOTIFICATION_PATH = '/api/whatsapp/woo/order-status';
+
+	/**
+	 * Send a store alert (new order) via the MyD Notifications service.
 	 *
-	 * @param string $to           Phone in E.164 format (+CC...).
+	 * @param string $to           Store phone in E.164 format (+CC...).
 	 * @param string $order_id     Order identifier.
 	 * @param string $status_label Human-readable status label (e.g., "Processing").
 	 * @return array{messageId:string,remaining:?int}|\WP_Error
 	 */
-	public static function send( $to, $order_id, $status_label ) {
+	public static function send_store_alert( $to, $order_id, $status_label ) {
 		$api_key = get_option( 'evwapp_myd_api_key' );
 
 		if ( empty( $api_key ) ) {
@@ -29,7 +39,7 @@ final class OMW_MyD_Client {
 		}
 
 		$response = wp_remote_post(
-			self::BASE_URL . '/api/whatsapp/send',
+			self::BASE_URL . self::STORE_ALERT_PATH,
 			[
 				'timeout' => 10,
 				'headers' => [
@@ -46,6 +56,59 @@ final class OMW_MyD_Client {
 			]
 		);
 
+		return self::parse_response( $response );
+	}
+
+	/**
+	 * Send a customer notification on order status change, with the extended
+	 * payload, via the MyD Notifications service. Same host, auth and error
+	 * handling as send_store_alert(); differs in path and body.
+	 *
+	 * @param string $to             Customer phone in E.164 format (+CC...).
+	 * @param string $customer_name  Customer first name.
+	 * @param string $order_id       Order identifier.
+	 * @param string $status_label   Human-readable status label (e.g., "Processing").
+	 * @param string $customer_email Customer email.
+	 * @return array{messageId:string,remaining:?int}|\WP_Error
+	 */
+	public static function send_customer_notification( $to, $customer_name, $order_id, $status_label, $customer_email ) {
+		$api_key = get_option( 'evwapp_myd_api_key' );
+
+		if ( empty( $api_key ) ) {
+			return new \WP_Error( 'NO_API_KEY', __( 'MyD API key is not configured.', 'woo-order-on-whatsapp' ) );
+		}
+
+		$response = wp_remote_post(
+			self::BASE_URL . self::CUSTOMER_NOTIFICATION_PATH,
+			[
+				'timeout' => 10,
+				'headers' => [
+					'x-api-key'    => $api_key,
+					'Content-Type' => 'application/json',
+				],
+				'body'    => wp_json_encode(
+					[
+						'to'           => $to,
+						'customerName' => $customer_name,
+						'orderId'      => (string) $order_id,
+						'status'       => $status_label,
+						'email'        => $customer_email,
+					]
+				),
+			]
+		);
+
+		return self::parse_response( $response );
+	}
+
+	/**
+	 * Map a wp_remote_post() result to the send contract: an array on success
+	 * or a WP_Error carrying an actionable code/message on failure.
+	 *
+	 * @param array|\WP_Error $response Raw wp_remote_post() return value.
+	 * @return array{messageId:string,remaining:?int}|\WP_Error
+	 */
+	private static function parse_response( $response ) {
 		if ( is_wp_error( $response ) ) {
 			return new \WP_Error( 'CONNECTION_ERROR', __( 'Connection error. Please try again.', 'woo-order-on-whatsapp' ) );
 		}
@@ -72,8 +135,9 @@ final class OMW_MyD_Client {
 		}
 
 		if ( $status_code < 200 || $status_code >= 300 ) {
-			$msg = isset( $body['message'] ) ? $body['message'] : __( 'Unexpected error.', 'woo-order-on-whatsapp' );
-			return new \WP_Error( 'UNKNOWN_ERROR', $msg );
+			$msg  = isset( $body['message'] ) ? $body['message'] : __( 'Unexpected error.', 'woo-order-on-whatsapp' );
+			$code = $status_code ? 'HTTP_' . $status_code : 'UNKNOWN_ERROR';
+			return new \WP_Error( $code, $msg );
 		}
 
 		return [
