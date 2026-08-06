@@ -29,16 +29,23 @@ class Api
     private string $projectId;
 
     /**
+     * User metadata (only sent for users who gave consent)
+     */
+    private array $metadata;
+
+    /**
      * Constructor
      *
      * @param string $publicKey Public API key
      * @param string $projectId Project ID
      * @param string|null $apiUrl Custom API URL (optional)
+     * @param array<string, mixed> $metadata User metadata, sent only with consent (optional)
      */
-    public function __construct(string $publicKey, string $projectId, ?string $apiUrl = null)
+    public function __construct(string $publicKey, string $projectId, ?string $apiUrl = null, array $metadata = [])
     {
         $this->publicKey = $publicKey;
         $this->projectId = $projectId;
+        $this->metadata = $metadata;
 
         if ($apiUrl !== null) {
             $this->apiUrl = rtrim($apiUrl, '/');
@@ -57,17 +64,6 @@ class Api
         $endpoint = '/features' . ($query ? '?' . $query : '');
 
         return $this->request('GET', $endpoint);
-    }
-
-    /**
-     * Get single feature
-     *
-     * @param string $featureId Feature ID
-     * @return array|WP_Error
-     */
-    public function getFeature(string $featureId)
-    {
-        return $this->request('GET', '/features/' . $featureId);
     }
 
     /**
@@ -136,6 +132,20 @@ class Api
     }
 
     /**
+     * Tell the API about the current user's consent state
+     *
+     * Consent lives in WordPress, so the API only learns about it when a
+     * request happens to carry the header. Syncing right after a decision
+     * applies it immediately instead of waiting for the user's next write.
+     *
+     * @return array|WP_Error
+     */
+    public function syncConsent()
+    {
+        return $this->request('POST', '/consent');
+    }
+
+    /**
      * Make API request
      *
      * @param string $method HTTP method
@@ -156,6 +166,21 @@ class Api
             ],
             User::getHeaders()
         );
+
+        $metadata = User::getMetadata($this->metadata);
+
+        if (!empty($metadata)) {
+            $encoded = wp_json_encode($metadata);
+
+            if ($encoded === false) {
+                return new WP_Error(
+                    'wpfeatureloop_invalid_metadata',
+                    'Metadata could not be encoded as JSON'
+                );
+            }
+
+            $headers['X-User-Metadata'] = $encoded;
+        }
 
         // Build request args
         $args = [

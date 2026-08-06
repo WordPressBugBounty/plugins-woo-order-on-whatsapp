@@ -34,7 +34,7 @@ class Client
     /**
      * SDK Version (used for cache busting)
      */
-    public const VERSION = '1.2.0';
+    public const VERSION = '1.3.0';
 
     /**
      * Script/style handle (shared across instances — same files)
@@ -152,10 +152,13 @@ class Client
      * @param array<string, mixed> $options Optional configuration
      *                                      - language: 'en' or 'pt-BR' (default: 'en')
      *                                      - capability: Required WP capability (default: 'read')
+     *                                      - metadata: Extra data about the user, sent only for
+     *                                        users who gave consent (default: [])
      */
     private function __construct(string $publicKey, string $projectId, array $options = [])
     {
         $apiUrl = $options['api_url'] ?? null;
+        $metadata = $options['metadata'] ?? [];
         $this->capability = $options['capability'] ?? 'read';
         $this->language = $options['language'] ?? 'en';
         $this->projectId = $projectId;
@@ -163,7 +166,7 @@ class Client
         // Assets URL based on SDK location
         $this->assetsUrl = plugin_dir_url(dirname(__DIR__) . '/include.php') . 'assets';
 
-        $this->api = new Api($publicKey, $projectId, $apiUrl);
+        $this->api = new Api($publicKey, $projectId, $apiUrl, $metadata);
 
         // Register REST API routes only once (shared across all instances)
         if (!self::$routesRegistered) {
@@ -240,17 +243,6 @@ class Client
     public function getFeatures(array $args = [])
     {
         return $this->api->getFeatures($args);
-    }
-
-    /**
-     * Get single feature by ID
-     *
-     * @param string $featureId Feature ID
-     * @return array|\WP_Error
-     */
-    public function getFeature(string $featureId)
-    {
-        return $this->api->getFeature($featureId);
     }
 
     /**
@@ -370,12 +362,26 @@ class Client
     /**
      * Set user consent
      *
+     * Stores in WordPress first — the sync sends a header derived from the meta
+     * just written, so the order matters. Sync failure is best-effort and does
+     * not affect the result.
+     *
      * @param bool $consent Whether user consents to sharing data
-     * @return bool Success
+     * @return bool Whether the decision was stored
      */
     public function setUserConsent(bool $consent): bool
     {
-        return User::setConsent($consent);
+        if (!User::setConsent($consent)) {
+            return false;
+        }
+
+        $response = $this->api->syncConsent();
+
+        if (is_wp_error($response) && WP_DEBUG) {
+            error_log('WPFeatureLoop: consent sync failed — ' . $response->get_error_message());
+        }
+
+        return true;
     }
 
     /**

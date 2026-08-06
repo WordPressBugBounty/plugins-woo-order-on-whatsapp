@@ -10,10 +10,15 @@
   ],
   "minimum-stability": "stable",
   "require-dev": {
-    "squizlabs/php_codesniffer": "^3.6",
-    "wp-coding-standards/wpcs": "^2.3"
+    "squizlabs/php_codesniffer": "^3.13.5",
+    "wp-coding-standards/wpcs": "^3.4"
   },
   "require": {
     "eduardovillao/wpfeatureloop-sdk": "*"
+  },
+  "config": {
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true
+    }
   }
 }

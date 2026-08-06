@@ -4,7 +4,7 @@ Donate link: https://eduardovillao.me/
 Tags: woocommerce, whatsapp, order whatsapp, whatsapp button, whatsapp notifications
 Requires at least: 5.5
 Tested up to: 7.0
-Stable tag: 4.0.3
+Stable tag: 4.0.4
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -40,6 +40,8 @@ Add a WhatsApp button to your product and cart pages, redirect customers to What
 ### Automatic WhatsApp Notifications with MyD Notifications
 
 The free plugin already handles WhatsApp communication at checkout. But if you want your customers to receive automatic status updates — confirmed, preparing, out for delivery, delivered — that's where **[MyD Notifications](https://myddelivery.com/notifications/)** comes in.
+
+https://youtu.be/3v7j-oMUTZc
 
 MyD Notifications is a paid add-on that works natively with this plugin. Every time an order status changes in WooCommerce, the matching WhatsApp message fires automatically. No manual work, no extra setup beyond an API key from the MyD dashboard.
 
@@ -83,6 +85,10 @@ Visit [eduardovillao.me](https://eduardovillao.me/wordpress-plugins/) for docume
 3. Custom Messages using tokens 2
 
 == Changelog ==
+
+= 4.0.4 =
+* Changed: WPFeatureLoop SDK upgrade.
+* Changed: code improvements.
 
 = 4.0.3 =
 * Changed: code improvements.
