@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'eduardovillao/woo-order-on-whatsapp',
-        'pretty_version' => 'v4.0.4',
-        'version' => '4.0.4.0',
-        'reference' => '3ba4d61f84a487e0b524e21b5416185edf138b80',
+        'pretty_version' => 'v4.1',
+        'version' => '4.1.0.0',
+        'reference' => '1e4a7adbf60936e6f37f94d2a0c092de7cb65785',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -11,9 +11,9 @@
     ),
     'versions' => array(
         'eduardovillao/woo-order-on-whatsapp' => array(
-            'pretty_version' => 'v4.0.4',
-            'version' => '4.0.4.0',
-            'reference' => '3ba4d61f84a487e0b524e21b5416185edf138b80',
+            'pretty_version' => 'v4.1',
+            'version' => '4.1.0.0',
+            'reference' => '1e4a7adbf60936e6f37f94d2a0c092de7cb65785',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

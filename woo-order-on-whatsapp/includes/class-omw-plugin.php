@@ -234,7 +234,7 @@ final class OMW_Plugin {
 	 * @access public
 	 */
 	public function enqueue_plugin_css() {
-		wp_enqueue_style( 'omw_style',  OMW_PLUGN_URL . '/assets/css/style.min.css', array(), OMW_VERSION );
+		wp_enqueue_style( 'omw_style',  OMW_PLUGIN_URL . '/assets/css/style.min.css', array(), OMW_VERSION );
 	}
 
 	/**
@@ -247,7 +247,7 @@ final class OMW_Plugin {
 	 * @access public
 	 */
 	public function enqueue_plugin_js() {
-		wp_enqueue_script( 'omw_script',  OMW_PLUGN_URL . '/assets/js/front-js.min.js', array(), OMW_VERSION, true );
+		wp_enqueue_script( 'omw_script',  OMW_PLUGIN_URL . '/assets/js/front-js.min.js', array(), OMW_VERSION, true );
 	}
 
 	/**
@@ -260,7 +260,7 @@ final class OMW_Plugin {
 	 * @access public
 	 */
 	public function enqueue_admin_plugin_css() {
-		wp_enqueue_style( 'omw_admin_style',  OMW_PLUGN_URL . '/assets/css/admin/admin-style.min.css', array(), OMW_VERSION );
+		wp_enqueue_style( 'omw_admin_style',  OMW_PLUGIN_URL . '/assets/css/admin/admin-style.min.css', array(), OMW_VERSION );
 	}
 
 	/**
@@ -273,6 +273,6 @@ final class OMW_Plugin {
 	 * @access public
 	 */
 	public function enqueue_admin_plugin_js() {
-		wp_enqueue_script( 'omw_admin_script', OMW_PLUGN_URL . '/assets/js/admin/admin-settings.min.js', [], OMW_VERSION, true );
+		wp_enqueue_script( 'omw_admin_script', OMW_PLUGIN_URL . '/assets/js/admin/admin-settings.min.js', [], OMW_VERSION, true );
 	}
 }

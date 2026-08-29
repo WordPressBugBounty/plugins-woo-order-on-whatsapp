@@ -12,6 +12,32 @@ if ( ! defined( 'ABSPATH' ) ) {
 	</h1>
 
 	<section class="myd-custom-content-page">
+		<div class="myd-admin-cards myd-card-1columns">
+			<div class="mydd-admin-card mydd-newsletter">
+				<div class="mydd-newsletter__intro">
+					<h2 class="mydd-admin-card__title mydd-newsletter__title"><?php esc_html_e( 'Stay in the loop', 'woo-order-on-whatsapp' ); ?></h2>
+					<p class="mydd-newsletter__description">
+						<?php esc_html_e( 'Get product updates, new features and tips for your store. No spam.', 'woo-order-on-whatsapp' ); ?>
+					</p>
+				</div>
+
+				<div class="newsletter-form-container mydd-newsletter__container">
+					<form class="newsletter-form mydd-newsletter__form" action="https://app.loops.so/api/newsletter-form/cmmcdtvw903t70iwyrjjpq346" method="POST">
+						<input class="newsletter-form-input mydd-newsletter__input" placeholder="<?php esc_attr_e( 'Your email', 'woo-order-on-whatsapp' ); ?>" required type="email" name="newsletter-form-input">
+						<button type="submit" class="newsletter-form-button mydd-admin-button mydd-newsletter__submit"><?php esc_html_e( 'Subscribe', 'woo-order-on-whatsapp' ); ?></button>
+						<button type="button" class="newsletter-loading-button mydd-admin-button mydd-newsletter__loading"><?php esc_html_e( 'Please wait…', 'woo-order-on-whatsapp' ); ?></button>
+					</form>
+					<div class="newsletter-success mydd-newsletter__success">
+						<p class="newsletter-success-message"><?php esc_html_e( "Thanks! We'll be in touch.", 'woo-order-on-whatsapp' ); ?></p>
+					</div>
+					<div class="newsletter-error mydd-newsletter__error">
+						<p class="newsletter-error-message"><?php esc_html_e( 'Oops! Something went wrong, please try again.', 'woo-order-on-whatsapp' ); ?></p>
+					</div>
+					<button type="button" class="newsletter-back-button mydd-newsletter__back">&larr; <?php esc_html_e( 'Back', 'woo-order-on-whatsapp' ); ?></button>
+				</div>
+			</div>
+		</div>
+
 		<div class="myd-admin-cards myd-card-2columns">
 			<div class="mydd-admin-card">
 				<h2 class="mydd-admin-card__title"><?php esc_html_e( 'Quick Access', 'woo-order-on-whatsapp' ); ?></h2>
@@ -38,8 +64,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<div class="mydd-admin-card mydd-addon-card">
 					<div class="mydd-addon-card__header">
 						<picture>
-							<source srcset="<?php echo esc_url( OMW_PLUGN_URL . 'assets/img/notifications-animation-1.avif' ); ?>" type="image/avif">
-							<img src="<?php echo esc_url( OMW_PLUGN_URL . 'assets/img/notifications-animation-1.webp' ); ?>" alt="<?php esc_attr_e( 'MyD Notifications', 'woo-order-on-whatsapp' ); ?>" class="mydd-addon-card__image">
+							<source srcset="<?php echo esc_url( OMW_PLUGIN_URL . 'assets/img/notifications-animation-1.avif' ); ?>" type="image/avif">
+							<img src="<?php echo esc_url( OMW_PLUGIN_URL . 'assets/img/notifications-animation-1.webp' ); ?>" alt="<?php esc_attr_e( 'MyD Notifications', 'woo-order-on-whatsapp' ); ?>" class="mydd-addon-card__image">
 						</picture>
 
 						<div class="mydd-addon-card__header-text">
@@ -71,3 +97,100 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</div>
 	</section>
 </div>
+
+<script>
+(function () {
+	function submitHandler(event) {
+		event.preventDefault();
+		var container = event.target.closest('.newsletter-form-container');
+		var form = container.querySelector('.newsletter-form');
+		var formInput = container.querySelector('.newsletter-form-input');
+		var success = container.querySelector('.newsletter-success');
+		var errorContainer = container.querySelector('.newsletter-error');
+		var errorMessage = container.querySelector('.newsletter-error-message');
+		var backButton = container.querySelector('.newsletter-back-button');
+		var submitButton = container.querySelector('.newsletter-form-button');
+		var loadingButton = container.querySelector('.newsletter-loading-button');
+
+		function rateLimit() {
+			errorContainer.classList.add('is-visible');
+			errorMessage.innerText = '<?php echo esc_js( __( 'Too many signups, please try again in a little while.', 'woo-order-on-whatsapp' ) ); ?>';
+			submitButton.classList.add('is-hidden');
+			formInput.classList.add('is-hidden');
+			backButton.classList.add('is-visible');
+		}
+
+		var timestamp = new Date().valueOf();
+		var previousTimestamp = localStorage.getItem('loops-form-timestamp');
+		if (previousTimestamp && Number(previousTimestamp) + 60000 > timestamp) {
+			rateLimit();
+			return;
+		}
+		localStorage.setItem('loops-form-timestamp', timestamp);
+
+		submitButton.classList.add('is-hidden');
+		loadingButton.classList.add('is-visible');
+
+		var formBody = 'userGroup=dashboard-woo-order-on-whatsapp&mailingLists=&email=' + encodeURIComponent(formInput.value);
+
+		fetch(event.target.action, {
+			method: 'POST',
+			body: formBody,
+			headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+		})
+			.then(function (res) { return [res.ok, res.json(), res]; })
+			.then(function (parts) {
+				var ok = parts[0], dataPromise = parts[1], res = parts[2];
+				if (ok) {
+					success.classList.add('is-visible');
+					form.reset();
+				} else {
+					dataPromise.then(function (data) {
+						errorContainer.classList.add('is-visible');
+						errorMessage.innerText = data.message ? data.message : res.statusText;
+					});
+				}
+			})
+			.catch(function (error) {
+				if (error.message === 'Failed to fetch') {
+					rateLimit();
+					return;
+				}
+				errorContainer.classList.add('is-visible');
+				if (error.message) errorMessage.innerText = error.message;
+				localStorage.setItem('loops-form-timestamp', '');
+			})
+			.finally(function () {
+				formInput.classList.add('is-hidden');
+				loadingButton.classList.remove('is-visible');
+				backButton.classList.add('is-visible');
+			});
+	}
+
+	function resetFormHandler(event) {
+		var container = event.target.closest('.newsletter-form-container');
+		var formInput = container.querySelector('.newsletter-form-input');
+		var success = container.querySelector('.newsletter-success');
+		var errorContainer = container.querySelector('.newsletter-error');
+		var errorMessage = container.querySelector('.newsletter-error-message');
+		var backButton = container.querySelector('.newsletter-back-button');
+		var submitButton = container.querySelector('.newsletter-form-button');
+
+		success.classList.remove('is-visible');
+		errorContainer.classList.remove('is-visible');
+		errorMessage.innerText = '<?php echo esc_js( __( 'Oops! Something went wrong, please try again.', 'woo-order-on-whatsapp' ) ); ?>';
+		backButton.classList.remove('is-visible');
+		formInput.classList.remove('is-hidden');
+		submitButton.classList.remove('is-hidden');
+	}
+
+	var formContainers = document.getElementsByClassName('newsletter-form-container');
+	for (var i = 0; i < formContainers.length; i++) {
+		var formContainer = formContainers[i];
+		if (formContainer.classList.contains('newsletter-handlers-added')) continue;
+		formContainer.querySelector('.newsletter-form').addEventListener('submit', submitHandler);
+		formContainer.querySelector('.newsletter-back-button').addEventListener('click', resetFormHandler);
+		formContainer.classList.add('newsletter-handlers-added');
+	}
+})();
+</script>

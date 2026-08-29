@@ -3,8 +3,8 @@ Contributors: evcode
 Donate link: https://eduardovillao.me/
 Tags: woocommerce, whatsapp, order whatsapp, whatsapp button, whatsapp notifications
 Requires at least: 5.5
-Tested up to: 7.0
-Stable tag: 4.0.4
+Tested up to: 7.1
+Stable tag: 4.1
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -85,6 +85,12 @@ Visit [eduardovillao.me](https://eduardovillao.me/wordpress-plugins/) for docume
 3. Custom Messages using tokens 2
 
 == Changelog ==
+
+= 4.1 =
+* New: customize cart message with tokens.
+* Changed: WP compatibility.
+* Changed: WPFeatureLoop SDK metadata upgrade.
+* Changed: code improvements.
 
 = 4.0.4 =
 * Changed: WPFeatureLoop SDK upgrade.

@@ -940,3 +940,141 @@ body.woo-order-on-whatsapp_page_woo-order-on-whatsapp-settings {
 	gap: 12px;
 	margin-top: auto;
 }
+
+.mydd-newsletter {
+	flex-direction: row;
+	align-items: center;
+	gap: 32px;
+	background: oklch(97% 0.014 254.604);
+	border-color: oklch(93.2% 0.032 255.585);
+	padding: 28px 32px;
+}
+
+.mydd-newsletter__intro {
+	flex: 1 1 0;
+	min-width: 0;
+}
+
+.mydd-newsletter__title {
+	margin-bottom: 8px;
+}
+
+.mydd-newsletter__description {
+	margin: 0;
+	color: oklch(44.6% 0.03 256.802);
+	font-size: 14px;
+	line-height: 1.5;
+}
+
+.mydd-newsletter__container {
+	flex: 1 1 0;
+	min-width: 280px;
+	max-width: 440px;
+}
+
+.mydd-newsletter__form {
+	display: flex;
+	gap: 8px;
+	align-items: stretch;
+}
+
+.mydd-newsletter__input {
+	flex: 1;
+	min-width: 0;
+	padding: 10px 14px;
+	height: 42px;
+	border: 1px solid oklch(87.2% 0.01 258.338);
+	border-radius: 8px;
+	background: #fff;
+	font-size: 14px;
+	line-height: 1.4;
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+	transition:
+		border-color 0.15s ease,
+		box-shadow 0.15s ease;
+}
+
+.mydd-newsletter__input:focus {
+	outline: none;
+	border-color: oklch(54.6% 0.245 262.881);
+	box-shadow: 0 0 0 3px oklch(54.6% 0.245 262.881 / 0.18);
+}
+
+.mydd-newsletter__submit,
+.mydd-newsletter__loading {
+	padding: 0 18px;
+	height: 42px;
+	cursor: pointer;
+	border: 0;
+	font-size: 14px;
+	font-weight: 500;
+	white-space: nowrap;
+	border-radius: 8px;
+}
+
+.mydd-newsletter__loading {
+	display: none;
+}
+
+.mydd-newsletter__loading.is-visible {
+	display: inline-flex;
+	align-items: center;
+}
+
+.mydd-newsletter__success,
+.mydd-newsletter__error {
+	display: none;
+	margin-top: 8px;
+	font-size: 14px;
+}
+
+.mydd-newsletter__success.is-visible,
+.mydd-newsletter__error.is-visible {
+	display: block;
+}
+
+.mydd-newsletter__success p {
+	margin: 0;
+	color: oklch(45.5% 0.188 142.495);
+}
+
+.mydd-newsletter__error p {
+	margin: 0;
+	color: oklch(50.5% 0.213 27.518);
+}
+
+.mydd-newsletter__back {
+	display: none;
+	margin: 12px 0 0;
+	padding: 4px 8px;
+	background: transparent;
+	border: 0;
+	color: oklch(44.6% 0.03 256.802);
+	font-size: 13px;
+	cursor: pointer;
+}
+
+.mydd-newsletter__back:hover {
+	text-decoration: underline;
+}
+
+.mydd-newsletter__back.is-visible {
+	display: inline-block;
+}
+
+.mydd-newsletter .is-hidden {
+	display: none !important;
+}
+
+@media (max-width: 720px) {
+	.mydd-newsletter {
+		flex-direction: column;
+		align-items: stretch;
+		gap: 16px;
+		padding: 24px;
+	}
+
+	.mydd-newsletter__container {
+		max-width: none;
+	}
+}

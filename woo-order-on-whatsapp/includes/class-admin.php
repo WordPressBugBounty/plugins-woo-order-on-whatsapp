@@ -76,11 +76,13 @@ class OMW_Admin {
 					'sanitize_callback' => 'sanitize_text_field',
 				]
 			],
-			'evwapp_opiton_message_cart' => [
+			'evwapp_opiton_cart_products_message' => [
 				'option_group' => $this->option_group,
-				'args' => [
-					'sanitize_callback' => 'sanitize_text_field',
-				]
+				'args' => []
+			],
+			'evwapp_opiton_cart_full_message' => [
+				'option_group' => $this->option_group,
+				'args' => []
 			],
 			'evwapp_opiton_text_button' => [
 				'option_group' => $this->option_group,
@@ -285,6 +287,38 @@ class OMW_Admin {
 		return array_values( array_intersect( array_map( 'sanitize_text_field', $value ), $valid_slugs ) );
 	}
 
+	/**
+	 * Default cart message, seeded from the legacy cart message when the store has one.
+	 *
+	 * @since 4.1
+	 * @return string
+	 */
+	public static function default_cart_message() {
+		$legacy_message = get_option( 'evwapp_opiton_message_cart' );
+
+		if ( ! empty( $legacy_message ) ) {
+			return $legacy_message . "\n\n{cart-products}\n\n" . __( 'Cart Total: ', 'woo-order-on-whatsapp' ) . '{cart-total}';
+		}
+
+		return __( "Hi! I'd like to order these items:", 'woo-order-on-whatsapp' ) . "\n\n"
+			. "{cart-products}\n\n"
+			. __( 'Subtotal:', 'woo-order-on-whatsapp' ) . ' {cart-subtotal}' . "\n"
+			. __( 'Total:', 'woo-order-on-whatsapp' ) . ' {cart-total}';
+	}
+
+	/**
+	 * Default products loop, matching the fixed layout for stores upgrading from it.
+	 *
+	 * @since 4.1
+	 * @return string
+	 */
+	public static function default_cart_products_message() {
+		$legacy_message = get_option( 'evwapp_opiton_message_cart' );
+		$price_token = empty( $legacy_message ) ? '{product-price}' : '{product-unit-price}';
+
+		return '-> {product-qty} x {product-name} {product-atributes} = ' . $price_token;
+	}
+
 	///'evwapp_opiton_phone_number' intval
 
 	/**
@@ -300,7 +334,7 @@ class OMW_Admin {
 			'publish_posts',
 			'order-on-mobile-for-woocommerce-dashboard',
 			'',
-			OMW_PLUGN_URL . 'assets/img/whatsapp.webp',
+			OMW_PLUGIN_URL . 'assets/img/whatsapp.webp',
 			56,
 		);
 
@@ -337,6 +371,9 @@ class OMW_Admin {
 	 * @return void
 	 */
 	public function register_settings() {
+
+		$this->settings['evwapp_opiton_cart_products_message']['args']['default'] = self::default_cart_products_message();
+		$this->settings['evwapp_opiton_cart_full_message']['args']['default'] = self::default_cart_message();
 
 		/**
 		 * Action to implement more admin settings.

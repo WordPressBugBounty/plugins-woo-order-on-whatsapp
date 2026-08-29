@@ -28,12 +28,12 @@ class OMW_Utils {
 	 * Format phone like a woocommerce settins
 	 *
 	 * @param $price
-	 * @return void
+	 * @return string
 	 * @since 2.8
 	 */
 	public static function format_price( $price ) {
-		if ( empty( $price ) ) {
-			return;
+		if ( ! is_numeric( $price ) ) {
+			return '';
 		}
 
 		$currency = get_woocommerce_currency_symbol();
@@ -41,6 +41,6 @@ class OMW_Utils {
 		$decimal_separator = get_option( 'woocommerce_price_decimal_sep');
 		$number_of_decimals = get_option( 'woocommerce_price_num_decimals' );
 
-		return $currency . ' ' . number_format( $price, $number_of_decimals, $thousand_separator, $decimal_separator );
+		return $currency . ' ' . number_format( (float) $price, $number_of_decimals, $decimal_separator, $thousand_separator );
 	}
 }

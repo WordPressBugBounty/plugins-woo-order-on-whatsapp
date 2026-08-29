@@ -5,7 +5,7 @@
  * Description: Order on Mobile for WooCommerce allows your customers to submit their orders through WhatsApp, directly from the Woocommerce product page.
  * Author: EduardoVillao.me
  * Author URI: https://eduardovillao.me/
- * Version: 4.0.4
+ * Version: 4.1
  * Requires at least: 5.5
  * Requires PHP: 7.4
  * Text Domain: woo-order-on-whatsapp
@@ -19,8 +19,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 define( 'OMW_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
-define( 'OMW_PLUGN_URL', plugin_dir_url( __FILE__ ) );
-define( 'OMW_VERSION', '4.0.4' );
+define( 'OMW_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
+define( 'OMW_VERSION', '4.1' );
+define( 'OMW_PLUGIN_NAME', 'Order on Mobile for WooCommerce' );
 define( 'OMW_PHP_MINIMUM_VERSION', '7.4' );
 define( 'OMW_WP_MINIMUM_VERSION', '5.5' );
 
@@ -37,7 +38,17 @@ if( ! version_compare( PHP_VERSION, OMW_PHP_MINIMUM_VERSION, '>=' ) ) {
 	include_once OMW_PLUGIN_PATH . 'includes/class-omw-plugin.php';
 	OMW_Plugin::instance();
 	require_once __DIR__ . '/vendor/autoload.php';
-	\WPFeatureLoop\Client::init('pk_live_783e198c8177013cc256635034cd22ba', 'cmljj016h000004l4i9gn0pkd', ['language' => 'en']);
+	\WPFeatureLoop\Client::init(
+		'pk_live_783e198c8177013cc256635034cd22ba',
+		'cmljj016h000004l4i9gn0pkd',
+		[
+			'language' => 'en',
+			'metadata' => [
+				'plugin_name' => OMW_PLUGIN_NAME,
+				'plugin_version' => OMW_VERSION,
+			],
+		]
+	);
 }
 
 /**
