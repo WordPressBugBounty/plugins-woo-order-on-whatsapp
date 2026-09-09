@@ -26,3 +26,18 @@ $omw_license_variant    = $omw_license_configured ? 'success' : 'warning';
 		</span>
 	<?php endif; ?>
 </div>
+
+<?php if ( ! $omw_license_configured ) : ?>
+	<div class="owm-license-upsell">
+		<p class="owm-license-upsell__text">
+			<?php
+			printf(
+				/* translators: %s: price of the cheapest plan, e.g. "$9/month" */
+				esc_html__( 'No plan yet? Automated WhatsApp notifications from %s', 'woo-order-on-whatsapp' ),
+				'<strong>' . esc_html( OMW_Utils::myd_starter_price() ) . '</strong>'
+			);
+			?>
+		</p>
+		<a href="https://services.myddelivery.com/signup?utm_source=woo-order-on-whatsapp&utm_medium=wp-admin&utm_campaign=myd-notifications&utm_content=license-status" target="_blank" class="mydd-admin-button"><?php esc_html_e( 'See plans', 'woo-order-on-whatsapp' ); ?> ↗</a>
+	</div>
+<?php endif; ?>

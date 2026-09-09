@@ -103,6 +103,24 @@
 	flex-shrink: 0;
 }
 
+.owm-license-upsell {
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 12px;
+	margin-top: 12px;
+}
+
+.owm-license-upsell__text {
+	margin: 0;
+	font-size: 0.95em;
+	color: var(--myd-color-zinc-500, oklch(55.2% 0.016 285.938));
+}
+
+.owm-license-upsell__text strong {
+	color: var(--myd-color-gray-950, oklch(13% 0.028 261.692));
+}
+
 .owm-license-status--success {
 	background: oklch(96% 0.05 150);
 	color: oklch(40% 0.12 150);
@@ -931,6 +949,18 @@ body.woo-order-on-whatsapp_page_woo-order-on-whatsapp-settings {
 	border-radius: 50%;
 	background: var(--myd-color-blue-400, oklch(70.7% 0.165 254.624));
 	flex-shrink: 0;
+}
+
+.mydd-addon-card__price {
+	margin: 0;
+	font-size: 0.95em;
+	color: var(--myd-color-zinc-500, oklch(55.2% 0.016 285.938));
+}
+
+.mydd-addon-card__price strong {
+	font-size: 1.35em;
+	font-weight: 700;
+	color: var(--myd-color-gray-950, oklch(13% 0.028 261.692));
 }
 
 .mydd-addon-card__footer {

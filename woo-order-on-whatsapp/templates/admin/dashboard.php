@@ -83,6 +83,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<li><?php esc_html_e( 'Fixed pricing, no hidden costs', 'woo-order-on-whatsapp' ); ?></li>
 					</ul>
 
+					<p class="mydd-addon-card__price">
+						<?php
+						printf(
+							/* translators: %s: price of the cheapest plan, e.g. "$9/month" */
+							esc_html__( 'From %s', 'woo-order-on-whatsapp' ),
+							'<strong>' . esc_html( OMW_Utils::myd_starter_price() ) . '</strong>'
+						);
+						?>
+					</p>
+
 					<div class="mydd-addon-card__footer">
 						<a href="https://services.myddelivery.com/signup?utm_source=woo-order-on-whatsapp&utm_medium=wp-admin&utm_campaign=myd-notifications&utm_content=dashboard-card" target="_blank" class="mydd-admin-button"><?php esc_html_e( 'See Plans', 'woo-order-on-whatsapp' ); ?></a>
 					</div>

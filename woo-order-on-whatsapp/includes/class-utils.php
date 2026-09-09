@@ -43,4 +43,14 @@ class OMW_Utils {
 
 		return $currency . ' ' . number_format( (float) $price, $number_of_decimals, $decimal_separator, $thousand_separator );
 	}
+
+	/**
+	 * Price of the cheapest MyD Notifications plan (Starter), shown on upgrade prompts.
+	 *
+	 * @return string
+	 * @since 4.2
+	 */
+	public static function myd_starter_price() {
+		return __( '$9/month', 'woo-order-on-whatsapp' );
+	}
 }
